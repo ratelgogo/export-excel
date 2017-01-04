@@ -11,12 +11,17 @@ function queryString(params) {
 }
 
 function timeFormat(timeStamp) {
-    const date = new Date(timeStamp);
-    let minutes = date.getMinutes();
-    if (minutes < 10) {
-        minutes = '0' + minutes;
+    try {
+        const date = new Date(timeStamp);
+        let minutes = date.getMinutes();
+        if (minutes < 10) {
+            minutes = '0' + minutes;
+        }
+        return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${minutes}`
+    } catch (error) {
+        console.log(error);
+        return '';
     }
-    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${minutes}`
 }
 
 function score(right, total) {
@@ -121,7 +126,7 @@ const handler = co.wrap(function *(ctx) {
             [
                 ['课程:', query.lesson],
                 ['试卷标题:', query.title],
-                ['发布时间:', query.time ? timeFormat(query.time) : ''],
+                ['发布时间:', timeFormat(parseInt(query.time))],
                 ['统计时间:', timeFormat(new Date())],
                 ['测试人数:', query.num],
                 ['个人识别码', '姓名', '成绩', '交题时间'],
