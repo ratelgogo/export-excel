@@ -121,8 +121,8 @@ const handler = co.wrap(function *(ctx) {
             [
                 ['课程:', query.lesson],
                 ['试卷标题:', query.title],
-                ['发布时间:', query.p_time],
-                ['统计时间:', query.c_time],
+                ['发布时间:', timeFormat(query.time)],
+                ['统计时间:', timeFormat(new Date())],
                 ['测试人数:', query.num],
                 ['个人识别码', '姓名', '成绩', '交题时间'],
                 ...result
